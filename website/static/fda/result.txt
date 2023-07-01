@@ -1,0 +1,10 @@
+poli
+0
+zeri
+1
+k_critico
+[](0x1)
+margine_di_modulo
+Inf
+margine_di_fase
+180

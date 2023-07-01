@@ -1,0 +1,120 @@
+{% extends "base.html" %} {% block title %}fda{% endblock %} {% block
+    content %} 
+    {% if cosa == "in" %}
+    <div class="container mt-4 mb-4">
+        <h3>Calcola: Bode, Nyquist, Root Locus... data una FDT</h3>
+        <form action="/fda/result_fdt" method="POST">
+            <div class="form-group">
+                <label for="transfer_function">Funzione di Trasferimento:</label>
+                <input placeholder="G(s)" type="text" class="form-control" id="transfer_function" name="transfer_function">
+                <label for="compensator">Lead-Lag Compensator o Controllore PID:</label>
+                <input placeholder="R(s)" type="text" class="form-control" id="compensator" name="compensator">                
+            </div>
+            <button type="submit" class="btn btn-primary">ELABORA</button>
+        </form>
+        <h3 class="mt-4">Esercizio con le matrici</h3>
+        <p class="ts-4">Stabilità interna, analisi modale, osservabilità, stabilità BIBO e raggiungibilità</p>
+        <form action="/fda/result_matrici" method="POST">
+            <div class="form-group">
+                <label for="A">A:</label>
+                <input placeholder="es. matrice 3x3: [-1 0 0; 0 -2 0; 0 0 -3]" type="text" class="form-control" id="A" name="A">
+            </div>
+            <div class="form-group">
+                <label for="B">B:</label>
+                <input type="text" class="form-control" id="B" name="B">
+            </div>
+            <div class="form-group">
+                <label for="C">C:</label>
+                <input type="text" class="form-control" id="C" name="C">
+            </div>
+            <div class="form-group">
+                <label for="D">D:</label>
+                <input type="text" class="form-control" id="D" name="D">
+            </div>
+            <button type="submit" class="btn btn-primary">ELABORA</button>
+        </form>
+        <p class="mt-4">In caso di errori lapalissiani provare a ricaricare la pagina (potrebbe essere stato un problema di concorrenza).</p>
+        <a href="{{ url_for('static',filename='fda/A_assignment.pdf') }}" class="btn btn-secondary btn-rounded">Esercizi parte A</a>
+        <a href="{{ url_for('static',filename='fda/B_assignment.pdf') }}" class="btn btn-secondary btn-rounded">Esercizi parte B</a>
+
+    </div>
+    {% elif cosa == "fdt" %}
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+    <div class="container">
+        <button class="btn btn-primary mt-5"><a href="/fda">Nuova FDT</a></button>
+        <h1 id="fdt" class="mt-5">$${ G(s) = {{ transfer_function }} }$$</h1>
+        <table class="table">
+            {% for key, value in numeric_result.items() %}
+            <tr>
+                <th> {{ key }} </th>
+                <td> {{ value }} </td>
+            </tr>
+            {% endfor %}
+        </table>  
+    </div>
+    <div class="container align-content-center">
+        <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/bode_plot.jpg') }}" alt="Card image cap">
+        <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/rlocus_plot.jpg') }}" alt="Card image cap">
+        <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/nyquist_plot.jpg') }}"  alt="Card image cap">
+        <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/step_response.jpg') }}" alt="Card image cap">
+        <h2 class="text-center">Sensitivity and Complementary functions:</h2>
+        <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/sensitivity_bode_plot.jpg') }}" alt="Card image cap">
+        <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/compl_sensitivity_bode_plot.jpg') }}" alt="Card image cap">
+    </div>
+    {% elif cosa == "compensator" %}
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+    <div class="container">
+        <button class="btn btn-primary mt-5"><a href="/fda">Nuova FDT</a></button>
+        <h1 id="fdt" class="mt-5">$${ G(s) = {{ transfer_function }} }$$</h1>
+        <h1 id="fdt" class="mt-5">$${ R(s) = {{ compensator }} }$$</h1>
+        <table class="table">
+            {% for key, value in numeric_result.items() %}
+            <tr>
+                <th> {{ key }} </th>
+                <td> {{ value }} </td>
+            </tr>
+            {% endfor %}
+        </table>  
+    </div>
+    <div class="container align-content-center">
+        <div class="row">
+          <div class="col-md-6">
+            <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/bode_plot.jpg') }}" alt="Bode Plot">
+          </div>
+          <div class="col-md-6">
+            <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/bode_plot_compensate.jpg') }}" alt="Compensated Bode Plot">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/rlocus_plot.jpg') }}" alt="Root Locus Plot">
+          </div>
+          <div class="col-md-6">
+            <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/rlocus_plot_compensate.jpg') }}" alt="Compensated Root Locus Plot">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/step_response.jpg') }}" alt="Step Response">
+          </div>
+          <div class="col-md-6">
+            <img class="img-fluid mb-3" src="{{ url_for('static', filename='fda/step_response_compensate.jpg') }}" alt="Compensated Step Response">
+          </div>
+        </div>
+    </div>
+    {% elif cosa == "matrici" %}
+    <div class="container p-4">
+        {% for line in ris %}
+        {% if line.startswith("-- ") %}
+        <p class="fs-3">{{ line.strip("-- ") }}</p>
+        {% elif line.startswith("** ") %}
+        <h3>{{ line.strip("** ") }}</h3>
+        {% else %}
+        <p class="text-danger">{{ line }}</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% elif cosa == "errore" %}
+    <h3>{{ errore }}</h3>
+    {% endif %}
+{% endblock %}
