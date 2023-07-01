@@ -8,3 +8,4 @@ margine_di_modulo
 Inf
 margine_di_fase
 180
+The system is not second-order.

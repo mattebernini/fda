@@ -1,4 +1,1 @@
 Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.
-error: bw_indices(1): out of bound 0 (dimensions are 0x1)
-error: called from
-    website/static/fda/fdt.m at line 72 column 14

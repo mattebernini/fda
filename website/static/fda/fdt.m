@@ -65,13 +65,15 @@ fdisp(fid, "margine_di_fase");
 fdisp(fid, fase);
 
 % Bandwidth from Bode (-3 dB)
-[mag, phase, wout] = bode(G);
-db_threshold = -3;
-mag_db = 20 * log10(squeeze(mag));
-bw_indices = find(mag_db <= db_threshold);
-bw_frequency = wout(bw_indices(1));
-fdisp(fid, "bandwidth");
-fdisp(fid, bw_frequency);
+try
+    [mag, phase, wout] = bode(G);
+    db_threshold = -3;
+    mag_db = 20 * log10(squeeze(mag));
+    bw_indices = find(mag_db <= db_threshold);
+    bw_frequency = wout(bw_indices(1));
+    fdisp(fid, "bandwidth");
+    fdisp(fid, bw_frequency);
+end
 
 % 2nd order system
 [num, den] = tfdata(G, 'v');
