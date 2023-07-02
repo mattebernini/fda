@@ -1,11 +1,13 @@
 poli
-0
+-1
 zeri
-1
+[](0x1)
 k_critico
 [](0x1)
 margine_di_modulo
 Inf
 margine_di_fase
 180
+bandwidth
+1
 The system is not second-order.

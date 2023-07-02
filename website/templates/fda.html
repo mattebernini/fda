@@ -3,7 +3,7 @@
     {% if cosa == "in" %}
     <div class="container mt-4 mb-4">
         <h3>Calcola: Bode, Nyquist, Root Locus... data una FDT</h3>
-        <form action="/fda/result_fdt" method="POST">
+        <form action="/result_fdt" method="POST">
             <div class="form-group">
                 <label for="transfer_function">Funzione di Trasferimento:</label>
                 <input placeholder="G(s)" type="text" class="form-control" id="transfer_function" name="transfer_function">
@@ -14,7 +14,7 @@
         </form>
         <h3 class="mt-4">Esercizio con le matrici</h3>
         <p class="ts-4">Stabilità interna, analisi modale, osservabilità, stabilità BIBO e raggiungibilità</p>
-        <form action="/fda/result_matrici" method="POST">
+        <form action="/result_matrici" method="POST">
             <div class="form-group">
                 <label for="A">A:</label>
                 <input placeholder="es. matrice 3x3: [-1 0 0; 0 -2 0; 0 0 -3]" type="text" class="form-control" id="A" name="A">
@@ -41,7 +41,7 @@
     {% elif cosa == "fdt" %}
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
     <div class="container">
-        <button class="btn btn-primary mt-5"><a href="/fda">Nuova FDT</a></button>
+        <button class="btn btn-primary mt-5"><a href="/">Nuova FDT</a></button>
         <h1 id="fdt" class="mt-5">$${ G(s) = {{ transfer_function }} }$$</h1>
         <table class="table">
             {% for key, value in numeric_result.items() %}
@@ -64,7 +64,7 @@
     {% elif cosa == "compensator" %}
     <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
     <div class="container">
-        <button class="btn btn-primary mt-5"><a href="/fda">Nuova FDT</a></button>
+        <button class="btn btn-primary mt-5"><a href="/">Nuova FDT</a></button>
         <h1 id="fdt" class="mt-5">$${ G(s) = {{ transfer_function }} }$$</h1>
         <h1 id="fdt" class="mt-5">$${ R(s) = {{ compensator }} }$$</h1>
         <table class="table">
