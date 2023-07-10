@@ -1,0 +1,8 @@
+Autovalore: -2
+Modo: exp(-2*t)
+Autovalore: -1+2i
+Modo: exp(-1*t) * sin(2*t)
+Autovalore: -1-2i
+Modo: exp(-1*t) * cos(2*t)
+Il sistema è internamente stabile in modo asintotico.
+

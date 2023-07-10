@@ -2,12 +2,13 @@
     content %} 
     {% if cosa == "in" %}
     <div class="container mt-4 mb-4">
+        <a href="/teoria" class="btn btn-secondary btn-rounded mb-5">Ripassa la TEORIA</a>
         <h3>Calcola: Bode, Nyquist, Root Locus... data una FDT</h3>
         <form action="/result_fdt" method="POST">
             <div class="form-group">
                 <label for="transfer_function">Funzione di Trasferimento:</label>
                 <input placeholder="G(s)" type="text" class="form-control" id="transfer_function" name="transfer_function">
-                <label for="compensator">Lead-Lag Compensator o Controllore PID:</label>
+                <label for="compensator">Controllore:</label>
                 <input placeholder="R(s)" type="text" class="form-control" id="compensator" name="compensator">                
             </div>
             <button type="submit" class="btn btn-primary">ELABORA</button>

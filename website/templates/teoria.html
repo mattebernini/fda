@@ -1,0 +1,176 @@
+{% extends "base.html" %} {% block title %}teoria{% endblock %} {% block
+    content %} 
+
+<h1>Fondamenti di Automatica</h1>
+<main class="container mt-4">
+<section id="cos-e-un-sistema">
+    <h2>Cos'è un sistema?</h2>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="equilibrio-e-linearizzazione">
+    <h3>Equilibrio e Linearizzazione</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="controllori-in-feedback">
+    <h3>Controllori in Feedback</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="sistemi-lti">
+    <h3>Sistemi LTI</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="funzione-di-trasferimento">
+    <h2>Funzione di Trasferimento</h2>
+    <p>
+
+    </p>
+    <form id="laplace-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-laplace" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <button id="submit-laplace" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Trasforma</button>
+    </form>
+    <div id="result-laplace"></div>
+</section>
+
+<section id="sistema-matriciale">
+    <h3>Sistema Matriciale</h3>
+    <!-- Contenuto della lezione -->
+    <form id="stability-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-stability" placeholder="Matrice A" class="form-control mr-sm-2" type="text">
+        <button id="submit-stability" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Verifica</button>
+    </form>
+    <div id="result-stability"></div>
+    <!--
+    <form id="reachability-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-reachability" placeholder="Matrice B" class="form-control mr-sm-2" type="text">
+        <button id="submit-reachability" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Verifica</button>
+    </form>
+    <div id="result-reachability"></div>
+    <form id="observability-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-observability" placeholder="Matrice C" class="form-control mr-sm-2" type="text">
+        <button id="submit-observability" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Verifica</button>
+    </form>
+    <div id="result-observability"></div>
+    -->
+</section>
+
+<section id="diagrammi-a-blocchi">
+    <h3>Diagrammi a Blocchi</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="ordine-di-un-sistema">
+    <h3>Ordine di un sistema</h3>
+    <!-- Contenuto della lezione -->
+    <form id="step-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-step" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <button id="submit-step" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
+    </form>
+    <div id="result-step"></div>
+</section>
+
+<section id="risposta-in-frequenza">
+    <h2>Risposta in Frequenza</h2>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="bode-plot">
+    <h3>Bode Plot</h3>
+    <!-- Contenuto della lezione -->
+    <form id="bode-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-bode" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <button id="submit-bode" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
+    </form>
+    <div id="result-bode"></div>
+</section>
+
+<section id="th-valore-finale">
+    <h3>Teorema del Valore Finale</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="steady-state-error">
+    <h3>Steady State Error</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="sensitivity-function">
+    <h3>Sensitivity Function</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="complementary-sensitivity-function">
+    <h3>Complementary Sensitivity Function</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="stability">
+    <h2>Stabilità</h2>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="routh-hurwitz-criterion">
+    <h3>Criterio di Routh-Hurwitz</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="criterio-di-nyquist">
+    <h3>Criterio di Nyquist</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="nyquist-plot">
+    <h3>Nyquist Plot</h3>
+    <!-- Contenuto della lezione -->
+    <form id="nyquist-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-nyquist" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <button id="submit-nyquist" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
+    </form>
+    <div id="result-nyquist"></div>
+</section>
+
+<section id="margini-di-stabilita">
+    <h3>Margini di Stabilità</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="root-locus">
+    <h3>Root Locus</h3>
+    <!-- Contenuto della lezione -->
+    <form id="rlocus-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-rlocus" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <button id="submit-rlocus" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
+    </form>
+    <div id="result-rlocus"></div>
+</section>
+
+<section id="controllori">
+    <h2>Controllori</h2>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="loop-shaping">
+    <h3>Loop Shaping</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+
+<section id="lead-lag-compensators">
+    <h3>Compensatori Lead-Lag</h3>
+    <!-- Contenuto della lezione -->
+</section>
+
+<section id="pid">
+    <h3>PID</h3>
+    <!-- Contenuto della lezione -->
+</section>
+</main>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="{{ url_for('static',filename='teoria/js/send_ajax.js') }}"></script>
+{% endblock %}

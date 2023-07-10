@@ -35,11 +35,6 @@ def get_results_fdt():
                 current_key = line  
     return data_dict
 
-def invL(F):
-    t, s = sympy.symbols('t, s')    
-    return sympy.inverse_laplace_transform(F, s, t)
-
-
 @fda.route("/result_fdt", methods=['GET', 'POST'])
 def fda_result_fdt():
     if request.method == 'POST':
@@ -86,6 +81,15 @@ def fda_result_matrici():
             file.write(f"{C_str}\n")
             file.write(f"{D_str}\n")
         exit_code = os.system("octave website/static/fda/matrici.m")
+        if exit_code != 0:
+        # qualsiasi errore
+            cosa = "errore"
+            with open(error_output_file, "r") as file:
+                error_output = file.read()
+            return render_template("fda.html",
+                           cosa=cosa,
+                           errore = f"Error occurred. Exit code: {exit_code}\n{error_output}"
+                           ) 
         f = open("website/static/fda/result.txt", "r")
     return render_template("fda.html",
                            cosa="matrici",
