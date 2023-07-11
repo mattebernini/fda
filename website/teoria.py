@@ -35,7 +35,9 @@ def rlocus():
 @teoria.route('/ajax/step', methods=['POST'])
 def step():
     fdt = request.form['fdt']
-    uty.plot("step", fdt)
+    xi = fdt.split(",")[0]
+    wn = fdt.split(",")[1]
+    uty.sys_2nd_order(float(xi), float(wn))
     return jsonify("ok")
 
 @teoria.route('/ajax/stability', methods=['POST'])

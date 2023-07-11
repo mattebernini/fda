@@ -5,44 +5,90 @@
 <main class="container mt-4">
 <section id="cos-e-un-sistema">
     <h2>Cos'è un sistema?</h2>
-    <!-- Contenuto della lezione -->
+    <p>
+        Un sistema è una raccolta di parti interconnesse che formano un insieme più complesso,
+        una rappresentazione di un qualcosa molto complesso nel mondo reale in termini matematici.
+        Un sistema di controllo invece è un particolare sistema che sottostà a particolari requisiti di performance o funzionalità,
+        per fare ciò sfrutta un meccanismo hardware o software che altera lo stato futuro del sistema per arrivare allo stato desiderato.
+    </p>
 </section>
 
 <section id="equilibrio-e-linearizzazione">
     <h3>Equilibrio e Linearizzazione</h3>
-    <!-- Contenuto della lezione -->
-</section>
-
-<section id="controllori-in-feedback">
-    <h3>Controllori in Feedback</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        Quando modelliziamo un sistema molto complesso è plausibile che anche il modello stesso risulti complesso, dunque difficilmente risolvibile,
+        entra qui in gioco la linearizzazione, ovvero l'approssimazione di un sistema non lineare ad un sistema lineare in una particolare regione 
+        del sistema dove questa approssimazione sia valida.
+        Uno stato del sistema è detto equilibrio se per ogni possibile input lo stato non cambia.
+        La linearizzazione viene fatta attorno ad un punto di equilibrio del sistema.
+    </p>
 </section>
 
 <section id="sistemi-lti">
     <h3>Sistemi LTI</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        I sistemi Lineari Tempo-Invariante sono dei particolari sistemi appunto lineari il cui output non dipende dal tempo ma solo dallo stato e dall'input.
+        Essi non modellizzano sistemi reali ma sono molto utili perchè possono fungere da linearizzazione di uno di essi e perchè sono risolvibili.
+        <blockquote>
+            "Linear systems are important because we can solve them.” — Richard Feynman.
+        </blockquote>
+        Proprietà:
+        <ul>
+            <li>Omogeneità -> se raddoppi l'input allora l'output sarà raddoppiato</li>
+            <li>Additività -> se x1 produce in output y1 e x2 produce y2 allora x1+x2 produrrà y1+y2</li>
+            <li>Tempo invarianza -> il sistema si comporta indipendentemente da quando avviene l'azione</li>
+        </ul>
+        Sebbene quindi queste condizioni siano molto stringenti e nessun sistema del mondo reale possa essere modellizzato con un LTI
+        la maggior parte dei sistemi possono essere linearizzati con esso.
+        Un sistema LTI può essere caratterizzato dalla sua risposta impulsiva (funzione delta di Dirac in input, zero ovunque ma infinito in x = 0).
+    </p>
 </section>
 
 <section id="funzione-di-trasferimento">
     <h2>Funzione di Trasferimento</h2>
     <p>
-
+        La rappresentazione matematica di un sistema può essere fatta in due modi: ne dominio del tempo col sistema di equazioni differenziali e matrici nell'immagine sopra oppure
+        nel dominio di Laplace (s) con la funzione di trasferimento.
+    </p>
+    <img src="{{ url_for('static',filename='teoria/img/ssr-tfr.png') }}" class="img-fluid mb-3">
+    <p>
+        Una funzione di trasferimento è la trasformazione di Laplace della risposta all'impulso di un sistema LTI con un singolo ingresso e output 
+        singolo quando si impostano le condizioni iniziali a zero.
     </p>
     <form id="laplace-form" class="form-inline my-2 my-lg-0">
-        <input id="fdt-laplace" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <input id="fdt-laplace" placeholder="Funzione di trasferimento o risposta impulsiva" class="form-control mr-sm-2" type="text">
         <button id="submit-laplace" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Trasforma</button>
     </form>
     <div id="result-laplace"></div>
+    <img src="{{ url_for('static',filename='teoria/img/LTI.png') }}" class="img-fluid mb-3">
+    <img src="{{ url_for('static',filename='teoria/img/gs-mat.png') }}" class="img-fluid mb-3">
+    <p>
+        Possiamo notare che i poli della fdt G(s) coincidono con gli autovalori della matrice A.
+    </p>
 </section>
 
-<section id="sistema-matriciale">
-    <h3>Sistema Matriciale</h3>
-    <!-- Contenuto della lezione -->
+<section id="stabilità">
+    <h3>Stabilità</h3>
+    <p>
+        La stabilità di un sistema è una proprietà che descrive come il sistema si comporta in risposta a piccole perturbazioni o cambiamenti.
+        Un sistema è considerato stabile se è in grado di mantenere uno stato o un comportamento desiderato di fronte a disturbi o variazioni nel suo ambiente.
+        Matematicamente un sistema si dice stabile se rimane vicino al proprio equilibrio quando viene perturbato e 
+        si dice asintoticamente stabile quando torna esattamente al suo equilibrio se perturbato.
+        Si noti che troppa stabilità non è necessariamente una buona cosa: un sistema troppo stabile significa che tende a non spostarsi dal suo equilibrio anche quando lo desideri che lo facesse.
+        Un sistema è BIBO Stabile (input limitato, output limitato) se per ogni input limitato, esiste un output limitato.
+    </p>
+    <h4>Condizioni di stabilità</h4>
+    <ul>
+        <li><strong>Asintoticamente stabile</strong> se gli autovalori della matrice A hanno parte reale < 0 e i poli della fdt hanno parte reale < 0.</li>
+        <li><strong>Marginalmente stabile</strong> se un autovalore (o polo) è = 0 con molteplicità = 1, tutti gli altri hanno parte reale < 0.</li>
+        <li><strong>Instabile</strong> se almeno un autovalore (o polo) ha parte reale > 0 o presenta un autovalore = 0 con molteplicità > 1.</li>
+    </ul>
     <form id="stability-form" class="form-inline my-2 my-lg-0">
         <input id="fdt-stability" placeholder="Matrice A" class="form-control mr-sm-2" type="text">
         <button id="submit-stability" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Verifica</button>
     </form>
     <div id="result-stability"></div>
+    <p>La stabilità è quindi una proprietà che dipende dalla struttura del sistema (matrice A).</p>
     <!--
     <form id="reachability-form" class="form-inline my-2 my-lg-0">
         <input id="fdt-reachability" placeholder="Matrice B" class="form-control mr-sm-2" type="text">
@@ -57,16 +103,45 @@
     -->
 </section>
 
+<section id="controllabilità">
+    <h3>Controllabilità</h3>
+    <p>
+        Uno stato si dice controllabile se esiste un input che porta dallo stato 0 allo stato desiderato in tempo finito, il sistema è controllabile se ogni suo stato è controllabile. 
+    </p>
+</section>
+
+<section id="osservabilità">
+    <h3>Osservabilità</h3>
+    <p>
+        Uno stato iniziale si dice osservabile se è possibile determinarlo misurando l'output, se ogni stato è osservabile il sistema è osservabile. 
+    </p>
+</section>
+
 <section id="diagrammi-a-blocchi">
     <h3>Diagrammi a Blocchi</h3>
-    <!-- Contenuto della lezione -->
+    <img src="{{ url_for('static',filename='teoria/img/block-diagrams.png') }}" class="img-fluid mb-3">
+    <p> 
+        In questo processo di somma e moltiplicazione di fdt in caso di cancellazione di zeri o poli può essere inficiata la controllabilità e l'osservabilità.
+        Inoltre non è possibile cancellare un polo instabile con uno zero, il sistema risulterebbe lo stesso instabile.
+    </p>
 </section>
 
 <section id="ordine-di-un-sistema">
     <h3>Ordine di un sistema</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        Un sistema si dice proprio se il numero dei suoi poli è >= al numero dei suoi zeri.
+        L'ordine di un sistema è dato dal più alto esponente del denominatore.
+        Un polo dominante è un polo del sistema che è più piccolo di almeno 5 volte di tutti gli altri poli,
+        col polo dominante si può approssimare un sistema di ordine n ad un sistema di ordine 1 con quel solo polo.
+        Nel caso il polo fosse complesso si può approssimare il sistema ad un sistema di ordine 2 che presenta le seguenti peculiarità:
+    </p>
+    <img src="{{ url_for('static',filename='teoria/img/gs2-1.png') }}" class="img-fluid mb-3">
+    <img src="{{ url_for('static',filename='teoria/img/gs2-2.png') }}" class="img-fluid mb-3">
+    <p>
+        Una volta ricavati xi e wn dall'equazione di secondo grado si può disegnare la risposta a gradino:
+    </p>
     <form id="step-form" class="form-inline my-2 my-lg-0">
-        <input id="fdt-step" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <input id="fdt-step" placeholder="xi, wn (es: 0.2,1)" class="form-control mr-sm-2" type="text">
         <button id="submit-step" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
     </form>
     <div id="result-step"></div>
@@ -89,28 +164,35 @@
 
 <section id="th-valore-finale">
     <h3>Teorema del Valore Finale</h3>
-    <!-- Contenuto della lezione -->
-</section>
-
-<section id="steady-state-error">
-    <h3>Steady State Error</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        Intuitivamente, se l'output converge in un singolo valore esiste il valore finale, se invece l'uscita oscilla indefinitamente o va all'infinito parlare del valore finale non ha senso.
+        Il valore finale nel dominio del tempo non è altro che il limite di x(t) all'infinito.
+        A patto che la fdt non abbia poli con parte reale positiva il teorema del valore finale ci permette di calcolare quest'ultimo
+        utilizzando la fdt e non la funzione nel dominio del tempo.
+        Infatti il th. del valore finale ci dice che il valore finale è uguale al limite di s -> 0 della X(s)*s.
+        X(s) = G(s) * U(s) ovvero la fdt per l'ingresso. 
+        <ul>
+            <li>impulso -> u(s) = 1</li>
+            <li>gradino -> u(s) = 1/s</li>
+            <li>rampa -> u(s) = 1/(s^2)</li>
+        </ul>
+    </p>
+    <h4>Errore a regime</h4>
+    Sfruttando il th. precedente si può calcolare l'errore a regime di un particolare ingresso facendo
+    il limite di s -> 0 di (s * U(s))/(1 + G(s)).
 </section>
 
 <section id="sensitivity-function">
     <h3>Sensitivity Function</h3>
-    <!-- Contenuto della lezione -->
+    Data una fdt G(s) e un controllore R(s) in serie ad essa si dice L(s) = R(s)*G(s) la fdt di ciclo aperto.
+    Per studiare quanto il feedback del sistema influenzi i disturbi si studia la funzione di sensitività: S(s) = 1/(1 + L(s))
 </section>
 
 <section id="complementary-sensitivity-function">
     <h3>Complementary Sensitivity Function</h3>
-    <!-- Contenuto della lezione -->
+    T(s) = L(s)/(1 + L(s))
 </section>
 
-<section id="stability">
-    <h2>Stabilità</h2>
-    <!-- Contenuto della lezione -->
-</section>
 
 <section id="routh-hurwitz-criterion">
     <h3>Criterio di Routh-Hurwitz</h3>
