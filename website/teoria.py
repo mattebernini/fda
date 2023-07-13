@@ -44,3 +44,13 @@ def step():
 def stability():
     fdt = request.form['fdt']
     return jsonify(uty.print_result("stability", fdt))
+
+@teoria.route('/ajax/valore_finale', methods=['POST'])
+def valore_finale():
+    fdt = request.form['fdt']
+    return jsonify(uty.calculate_final_value(fdt))
+
+@teoria.route('/ajax/errore', methods=['POST'])
+def errore():
+    fdt = request.form['fdt']
+    return jsonify(uty.calculate_ss_error(fdt))

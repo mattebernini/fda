@@ -2,6 +2,29 @@
     content %} 
 
 <h1>Fondamenti di Automatica</h1>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#stabilità">Stabilità</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#ordine-di-un-sistema">Ordine di un sistema</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#th-valore-finale">Teorema del Valore Finale</a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#risposta-in-frequenza">Risposta in Frequenza</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 <main class="container mt-4">
 <section id="cos-e-un-sistema">
     <h2>Cos'è un sistema?</h2>
@@ -119,7 +142,7 @@
 
 <section id="diagrammi-a-blocchi">
     <h3>Diagrammi a Blocchi</h3>
-    <img src="{{ url_for('static',filename='teoria/img/block-diagrams.png') }}" class="img-fluid mb-3">
+    <img src="{{ url_for('static',filename='teoria/img/block-diagrams.png') }}" class="img-fluid mb-3 w-50">
     <p> 
         In questo processo di somma e moltiplicazione di fdt in caso di cancellazione di zeri o poli può essere inficiata la controllabilità e l'osservabilità.
         Inoltre non è possibile cancellare un polo instabile con uno zero, il sistema risulterebbe lo stesso instabile.
@@ -147,21 +170,6 @@
     <div id="result-step"></div>
 </section>
 
-<section id="risposta-in-frequenza">
-    <h2>Risposta in Frequenza</h2>
-    <!-- Contenuto della lezione -->
-</section>
-
-<section id="bode-plot">
-    <h3>Bode Plot</h3>
-    <!-- Contenuto della lezione -->
-    <form id="bode-form" class="form-inline my-2 my-lg-0">
-        <input id="fdt-bode" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
-        <button id="submit-bode" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
-    </form>
-    <div id="result-bode"></div>
-</section>
-
 <section id="th-valore-finale">
     <h3>Teorema del Valore Finale</h3>
     <p>
@@ -177,11 +185,58 @@
             <li>rampa -> u(s) = 1/(s^2)</li>
         </ul>
     </p>
+    <form id="valore_finale-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-valore_finale" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <button id="submit-valore_finale" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Calcola</button>
+    </form>
+    <div id="result-valore_finale"></div>
     <h4>Errore a regime</h4>
-    Sfruttando il th. precedente si può calcolare l'errore a regime di un particolare ingresso facendo
-    il limite di s -> 0 di (s * U(s))/(1 + G(s)).
+    <p>
+        Sfruttando il th. precedente si può calcolare l'errore a regime di un particolare ingresso facendo
+        il limite di s -> 0 di (s * U(s))/(1 + G(s)).
+    </p>
+    <form id="errore-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-errore" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <button id="submit-errore" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Calcola</button>
+    </form>
+    <div id="result-errore"></div>
 </section>
 
+<section id="risposta-in-frequenza">
+    <h2>Risposta in Frequenza</h2>
+    <p>
+        La risposta in frequenza di un sistema di controllo descrive come il sistema risponde ai segnali in ingresso a diverse frequenze.
+        Viene solitamente rappresentata graficamente utilizzando un diagramma di Bode, che mostra l'ampiezza e la fase del segnale di uscita in funzione della frequenza del segnale di ingresso.
+        La rappresentazione del diagramma di Bode è valida solo per sistemi stabili o marginalmente stabili.
+    </p>
+</section>
+
+<section id="bode-plot">
+    <h3>Bode Plot</h3>
+    <p>
+        Ogni diagramma di Bode è composto in realtà da due grafici: uno che rappresenta il guadagno (o modulo) e l'altro che rappresenta la fase, sull'asse x c'è sempre la frequenza.
+        Il guadagno viene rappresentato in deciBel (dB) mentre la fase in gradi (°).
+        Come disegnare un diagramma di Bode data una fdt?
+        Con Matlab, a mano possiamo solo farne un'approssimazione degli asintoti, ecco come:
+        <ul>
+            <li>Portare la fdt in forma di Bode, ovvero (dando per scontato che ogni fattore della fdt sia un polo, uno zero o una costante) con tutti i poli e gli zeri nella forma k*(s/k + 1)</li>
+            <li>es.: G(s) = 1/(s * (s+2) * (s+10)) -> in forma di Bode -> G(s) = 1/(s * 2*(s/2+1) * 10*(s/10+1)) <br> G(s) = 1/(20 * s * (s/2+1) * (s/10+1)) </li>
+            <li>A questo punto si tratta di disegnare gli asintoti sui due grafici per ogni fattore (in questo caso abbiamo 3 poli ed una costante 1/20 come fattori)</li>
+        </ul>
+    </p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/_eh1conN6YM?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <form id="bode-form" class="form-inline my-2 my-lg-0">
+        <input id="fdt-bode" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
+        <button id="submit-bode" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
+    </form>
+    <div id="result-bode"></div>
+    <p>
+        La lunghezza di banda è il range di frequenza nelle quali il guadagno è significativo (solitamente > -3dB).
+        L'ampiezza di banda è un'indicazione della velocità di risposta del sistema: un'ampiezza di banda più elevata implica una risposta transitoria più rapida (cioè in grado di seguire frequenze più elevate).
+
+    </p>
+</section>
+<!--
 <section id="sensitivity-function">
     <h3>Sensitivity Function</h3>
     Data una fdt G(s) e un controllore R(s) in serie ad essa si dice L(s) = R(s)*G(s) la fdt di ciclo aperto.
@@ -192,11 +247,19 @@
     <h3>Complementary Sensitivity Function</h3>
     T(s) = L(s)/(1 + L(s))
 </section>
-
-
+-->
 <section id="routh-hurwitz-criterion">
     <h3>Criterio di Routh-Hurwitz</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        Il criterio di stabilità di Routh-Hurwitz è un test matematico che rappresenta una condizione necessaria e sufficiente per la stabilità di un sistema di controllo lineare invariante nel tempo (LTI).
+        Permette di verificare la stabilità senza dover calcolare i poli, qualora il denominatore fosse un'equazione di grado abbastanza alto.
+    </p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/WBCZBOB3LCA?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <p>
+        E' inoltre molto utile per trovare il K critico, ovvero il guadagno K massimo moltiplicabile alla fdt dopo il quale il sistema a ciclo chiuso risulta instabile.
+        Basta sommare al denominatore preso in esame dal metodo del video sopra il numeratore moltiplicato per la variabile K e determinare le condizioni di stabilità per K.
+
+    </p>
 </section>
 
 <section id="criterio-di-nyquist">
@@ -207,6 +270,7 @@
 <section id="nyquist-plot">
     <h3>Nyquist Plot</h3>
     <!-- Contenuto della lezione -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/sof3meN96MA?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <form id="nyquist-form" class="form-inline my-2 my-lg-0">
         <input id="fdt-nyquist" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
         <button id="submit-nyquist" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
@@ -222,6 +286,7 @@
 <section id="root-locus">
     <h3>Root Locus</h3>
     <!-- Contenuto della lezione -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/CRvVDoQJjYI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <form id="rlocus-form" class="form-inline my-2 my-lg-0">
         <input id="fdt-rlocus" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
         <button id="submit-rlocus" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>

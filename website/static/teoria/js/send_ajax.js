@@ -48,13 +48,13 @@ function prepara_ajax_fdt_in(arg)
           },
           error: function(error) {
             console.log(error);  
-            display_result(arg, "");
+            display_result(arg, "Errore durante l'elaborazione, si prega di segnalare l'errore sulla repo di Github (link in fondo alla pagina).");
           }
         });
   });
 }
   
-argomenti = ["bode", "laplace", "nyquist", "rlocus", "step", "stability", "observability", "reachability"];
+argomenti = ["bode", "laplace", "nyquist", "rlocus", "step", "stability", "observability", "reachability", "valore_finale", "errore"];
 argomenti.forEach(element => {
   prepara_ajax_fdt_in(element);
 });
