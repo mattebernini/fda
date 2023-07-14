@@ -78,8 +78,6 @@ def fdt(f):
     return tf
 
 def calculate_final_value(tf_str):
-    s = symbols('s')
-
     tf = eval(f"({tf_str})*s")
     impulse = limit(tf, s, 0)
 
@@ -92,8 +90,6 @@ def calculate_final_value(tf_str):
     return f"impulso -> {impulse}, gradino -> {step}, rampa -> {ramp}"
 
 def calculate_ss_error(tf_str):
-    s = symbols('s')
-
     tf = eval(f"s/(1 + {tf_str})")
     impulse = limit(tf, s, 0)
 

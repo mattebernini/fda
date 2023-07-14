@@ -236,13 +236,14 @@
 
     </p>
 </section>
-<!--
 <section id="sensitivity-function">
     <h3>Sensitivity Function</h3>
     Data una fdt G(s) e un controllore R(s) in serie ad essa si dice L(s) = R(s)*G(s) la fdt di ciclo aperto.
-    Per studiare quanto il feedback del sistema influenzi i disturbi si studia la funzione di sensitività: S(s) = 1/(1 + L(s))
+    Per studiare quanto il feedback del sistema influenzi i disturbi si studia la funzione di sensitività: S(s) = 1/(1 + L(s)).
+    In particolare si studia il picco di sensitività nominale ovvero: il massimo di w in |S(jw)|, più è alto e maggiore il nostro sistema sarà sensibile agli ingressi.
 </section>
 
+<!--
 <section id="complementary-sensitivity-function">
     <h3>Complementary Sensitivity Function</h3>
     T(s) = L(s)/(1 + L(s))
@@ -258,18 +259,33 @@
     <p>
         E' inoltre molto utile per trovare il K critico, ovvero il guadagno K massimo moltiplicabile alla fdt dopo il quale il sistema a ciclo chiuso risulta instabile.
         Basta sommare al denominatore preso in esame dal metodo del video sopra il numeratore moltiplicato per la variabile K e determinare le condizioni di stabilità per K.
-
     </p>
 </section>
 
 <section id="criterio-di-nyquist">
     <h3>Criterio di Nyquist</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        Col criterio di Nyquist possiamo verificare semplicemente la stabilità di ciclo chiuso partendo da una fdt di ciclo aperto semplicemente disegnando il diagramma di Nyquist e contando gli avvolgimenti attorno al punto x = -1.
+        Questo perchè abbiamo visto che coi diagrammi di Bode non possiamo dedurre niente a riguardo della stabilità e col cirterio di Routh-Hurwitz impieghiamo molto tempo.
+        Con questo criterio basta disegnare il diagramma (vedi come al prossimo paragrafo) e verificare che il diagramma non avvolga il punto x = -1 perchè il sistema sia stabile a ciclo chiuso.
+    </p>
 </section>
 
 <section id="nyquist-plot">
     <h3>Nyquist Plot</h3>
-    <!-- Contenuto della lezione -->
+    <ul>
+        <li>Sostituire ad s il numero immaginario jw e calcolarsi G(jw)</li>
+        <li>Calcolarsi G(jw) con w -> 0: quello sarà il punto di inizio del diagramma</li>
+        <li>Calcolarsi G(jw) con w -> inf: quello sarà il punto di fine</li>
+        <li>Trovare wr ponendo la parte reale di G(jw) = 0</li>
+        <li>Il diagramma intersecherà l'asse immaginario in G(jwr)</li>
+        <li>Trovare wimm ponendo la parte immaginaria di G(jw) = 0</li>
+        <li>Il diagramma intersecherà l'asse reale in G(jwimm)</li>
+        <li>Con questi 4 punti puoi disegnare il diagramma e rifletterlo rispetto all'asse x</li>
+    </ul>
+    <p>
+        Ovviamente questo metodo da un'approssimazione del diagramma e non il vero diagramma.
+    </p>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/sof3meN96MA?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <form id="nyquist-form" class="form-inline my-2 my-lg-0">
         <input id="fdt-nyquist" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">
@@ -280,12 +296,43 @@
 
 <section id="margini-di-stabilita">
     <h3>Margini di Stabilità</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        I margini di stabilità sono due valori che ci dicono quanto modulo e quanta fase possiamo aggiungere alla nostra fdt purchè essa rimanga stabile.
+        Essi sono intuibili dal diagramma di Bode, infatti:
+        il <strong>margine di modulo</strong> è il valore che prende il modulo alla frequenza in cui la fase è a -180°, 
+        il <strong>margine di fase</strong> invece è il valore che prende la fase alla frequenza in cui il modulo è a zero sommata a 180°. 
+        <a href="#bode-plot">Si possono calcolare i margini di fase dal paragrafo sui diagrammi di Bode.</a>
+    </p>
 </section>
 
 <section id="root-locus">
     <h3>Root Locus</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        Il luogo delle radici è un diagramma sul piano complesso che rappresenta i poli e gli zeri di una fdt al variare di K.
+        Analizzandolo si può determinare la stabilità al variare di k (k critico) e determinare se la risposta nel dominio del tempo oscilla oppure è esponenziale.
+        E' molto utile inoltre nella progettazione di controllori visto che si possono visionare da un diagramma gli effetti dell'aggiunta di poli e zeri al variare del guadagno K.
+        Ecco le regole da seguire per disegnare a mano il luogo delle radici prendendo il considerazione poli e zeri della fdt di ciclo aperto:
+        <ol>
+            <li>n° linee = max(n° poli, n° zeri)</li>
+            <li>Le linee vanno dai poli agli zeri</li>
+            <li>Le radici complesse sono simmetriche rispetto all'asse reale e anche le relative linee lo sono</li>
+            <li>Le linee non si sovrappongono</li>
+            <li>Contando da destra i poli dispari non accoppiati vanno sull'asse reale a sinista.</li>
+            <li>Le linee entrano ed escono dall'asse reale a 90°</li>
+            <li>Le linee disaccoppiate vanno ad infinito</li>
+            <li>
+                Asintoti:
+                <ul>
+                    <li>Dati n = n° poli, m = n° zeri, q = 1, 2, ..., (n-m-1)</li>
+                    <li>Il centro da dove partono gli asintoti è = <br> (somma(valore dei poli)-somma(valore degli zeri))/(n - m)</li>
+                    <li>Gli angoli sono = (2*q + 1)*180°/(n-m)</li>
+                </ul>
+            </li>
+            <li>Se due radici vanno ad infinito allora la somma delle radici è costante</li>
+            <li>Il luogo inverso (con k da 0 a -inf) si disegna invertendo la regola 5 e aggiungendo 180° agli asintoti</li>
+            <li>Extra: L'angolo teta è l'angolo che prende dall'asse x l'asintoto del damping ratio xi (sistema 2nd ordine) che si ottiene con: cos(teta) = xi</li>
+        </ol>
+    </p>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/CRvVDoQJjYI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <form id="rlocus-form" class="form-inline my-2 my-lg-0">
         <input id="fdt-rlocus" placeholder="Funzione di trasferimento" class="form-control mr-sm-2" type="text">

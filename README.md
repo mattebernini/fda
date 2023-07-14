@@ -7,5 +7,4 @@ Ogni contributo è ben accetto!!
 ## Issues 
 
 website/utility.py -> calculate_ss_error()
-website/utility.py -> calculate_final_value()
 
