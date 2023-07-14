@@ -343,18 +343,34 @@
 
 <section id="controllori">
     <h2>Controllori</h2>
-    <!-- Contenuto della lezione -->
+    <p>
+        Un controllore è un dispositivo che riceve come input una misurazione di un processo e genera come output un comando che viene utilizzato per controllare il processo. Il controllore è progettato per mantenere il processo in uno stato desiderato, nonostante le perturbazioni esterne.
+        Nel nostro caso dato un sistema con fdt G(s) il controllore è un blocco che si mette in serie a G(s) che modifica il comportamento del sistema per raggiungere un obiettivo di prestazione.
+    </p>
 </section>
 
 <section id="loop-shaping">
     <h3>Loop Shaping</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        Partendo da una fdt G(s) voglio aggiungergli in serie un controllore R(s) che riesca a soddisfare alcuni parametri prestabiliti come:
+        il sistema deve avere un certo margine di fase o di guadagno, l'errore a gradino deve essere minore di un tot oppure voglio rendere più stabile il sistema, etc...
+        Solitamente è necessario analizzare il diagramma di Bode e tramite una procedura di trial-error si può arrivare al controllore R(s) desiderato. 
+    </p>
 </section>
 
 
 <section id="lead-lag-compensators">
     <h3>Compensatori Lead-Lag</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        I compensatori lead-lag sono particolari controllori che permettono di agire in specifici parametri del sistema:
+        <ul>
+            <li>Sono del tipo: R(s) = (s + z)/(s + p)</li>
+            <li>Il Lead-compensator ha z < p ed aggiunge fase a determinate frequenze</li>
+            <li>Il Lag-compensator invece ha z > p e riduce la fase in determinate frequenze</li>
+            <li>Possono essere utilizzati entrambi in contemporanea per agire su punti diversi dello spettro</li>à
+        </ul>
+        Possono essere utilizzati anche per migliorare la stabilità o agire su di essa, infatti essendo coppi poli-zeri possono modificare gli asintoti del luogo delle radici (asintoti più a sx maggiore stabilità).
+    </p>
 </section>
 
 <section id="pid">
