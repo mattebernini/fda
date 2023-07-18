@@ -7,7 +7,7 @@ fda = Blueprint('fda', __name__)
 error_output_file = "website/static/fda/error_output.err"
 
 
-@fda.route("/", methods=['GET', 'POST'])
+@fda.route("/esercizi", methods=['GET', 'POST'])
 def input_fda():
     return render_template("fda.html",
                            cosa="in")

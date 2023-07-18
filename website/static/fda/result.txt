@@ -1,13 +1,34 @@
-poli
--1
-zeri
-[](0x1)
-k_critico
-[](0x1)
-margine_di_modulo
-Inf
-margine_di_fase
-180
-bandwidth
-1
-The system is not second-order.
+G(s) = 
+  <class tf>
+Autovalore -2:
+Modo: exp(-2*t)
+Autovalore -1+2i:
+Modo: exp(-1*t) * sin(2*t)
+Autovalore -1-2i:
+Modo: exp(-1*t) * cos(2*t)
+
+Il sistema è internamente stabile in modo asintotico.
+
+reachability_matrix
+    1    1    3
+    2    0  -10
+    1   -5    5
+Il sistema è completamente raggiungibile.
+
+Observability matrix:
+   0   1   0
+   0  -1   2
+   0  -3  -4
+Il sistema non è osservabile. rango = 
+2
+
+observability_eigenvalues
+        0 +      0i
+  -2.5000 + 1.9365i
+  -2.5000 - 1.9365i
+reachability_eigenvalues
+    1.7417
+   -5.7417
+   10.0000
+Il sistema non è BIBO stabile.
+

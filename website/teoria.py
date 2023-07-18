@@ -3,7 +3,7 @@ import website.utility as uty
 
 teoria = Blueprint('teoria', __name__)
 
-@teoria.route("/teoria", methods=['GET', 'POST'])
+@teoria.route("/", methods=['GET', 'POST'])
 def teoria_home():
     return render_template("teoria.html")
                            
@@ -40,10 +40,13 @@ def step():
     uty.sys_2nd_order(float(xi), float(wn))
     return jsonify("ok")
 
-@teoria.route('/ajax/stability', methods=['POST'])
-def stability():
-    fdt = request.form['fdt']
-    return jsonify(uty.print_result("stability", fdt))
+@teoria.route('/ajax/matrix', methods=['POST'])
+def matrix():
+    A = request.form['A']
+    B = request.form['B']
+    C = request.form['C']
+    D = request.form['D']
+    return jsonify(uty.result_matrici(A,B,C,D))
 
 @teoria.route('/ajax/valore_finale', methods=['POST'])
 def valore_finale():

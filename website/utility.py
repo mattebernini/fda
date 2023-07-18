@@ -100,3 +100,16 @@ def calculate_ss_error(tf_str):
     ramp = limit(tf, s, 0)
     
     return f"impulso -> {impulse}, gradino -> {step}, rampa -> {ramp}"
+
+def result_matrici(A, B, C, D):
+    error_output_file = "website/static/teoria/files/error_output.err"
+
+    with open('website/static/teoria/files/in_matrici.txt', 'w') as file:
+        file.write(f"{A}\n")
+        file.write(f"{B}\n")
+        file.write(f"{C}\n")
+        file.write(f"{D}\n")
+    os.system("octave website/static/teoria/octave/matrici.m")
+   
+    f = open("website/static/teoria/files/result.txt", "r")
+    return f.read()

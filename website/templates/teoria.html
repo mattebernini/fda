@@ -10,33 +10,35 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#stabilità">Stabilità</a>
+            <a class="nav-link" href="#introduzione">Introduzione</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#ordine-di-un-sistema">Ordine di un sistema</a>
+              <a class="nav-link" href="#matrici">Matrici</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#th-valore-finale">Teorema del Valore Finale</a>
+                <a class="nav-link" href="#fdt">Funzione di Trasferimento</a>
             </li>
           <li class="nav-item">
-            <a class="nav-link" href="#risposta-in-frequenza">Risposta in Frequenza</a>
+            <a class="nav-link" href="#diagrammi">Diagrammi e Metodi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#controllori">Controllori</a>
           </li>
         </ul>
       </div>
     </nav>
   </header>
 <main class="container mt-4">
-<section id="cos-e-un-sistema">
-    <h2>Cos'è un sistema?</h2>
+<section id="introduzione">
+    <h2 class="text-center text-danger">Introduzione</h2>
+    <h3>Cos'è un sistema?</h3>
     <p>
         Un sistema è una raccolta di parti interconnesse che formano un insieme più complesso,
         una rappresentazione di un qualcosa molto complesso nel mondo reale in termini matematici.
         Un sistema di controllo invece è un particolare sistema che sottostà a particolari requisiti di performance o funzionalità,
         per fare ciò sfrutta un meccanismo hardware o software che altera lo stato futuro del sistema per arrivare allo stato desiderato.
     </p>
-</section>
 
-<section id="equilibrio-e-linearizzazione">
     <h3>Equilibrio e Linearizzazione</h3>
     <p>
         Quando modelliziamo un sistema molto complesso è plausibile che anche il modello stesso risulti complesso, dunque difficilmente risolvibile,
@@ -45,9 +47,8 @@
         Uno stato del sistema è detto equilibrio se per ogni possibile input lo stato non cambia.
         La linearizzazione viene fatta attorno ad un punto di equilibrio del sistema.
     </p>
-</section>
 
-<section id="sistemi-lti">
+    
     <h3>Sistemi LTI</h3>
     <p>
         I sistemi Lineari Tempo-Invariante sono dei particolari sistemi appunto lineari il cui output non dipende dal tempo ma solo dallo stato e dall'input.
@@ -65,10 +66,8 @@
         la maggior parte dei sistemi possono essere linearizzati con esso.
         Un sistema LTI può essere caratterizzato dalla sua risposta impulsiva (funzione delta di Dirac in input, zero ovunque ma infinito in x = 0).
     </p>
-</section>
 
-<section id="funzione-di-trasferimento">
-    <h2>Funzione di Trasferimento</h2>
+    <h3>Funzione di Trasferimento</h3>
     <p>
         La rappresentazione matematica di un sistema può essere fatta in due modi: ne dominio del tempo col sistema di equazioni differenziali e matrici nell'immagine sopra oppure
         nel dominio di Laplace (s) con la funzione di trasferimento.
@@ -86,70 +85,126 @@
     <img src="{{ url_for('static',filename='teoria/img/LTI.png') }}" class="img-fluid mb-3">
     <img src="{{ url_for('static',filename='teoria/img/gs-mat.png') }}" class="img-fluid mb-3">
     <p>
-        Possiamo notare che i poli della fdt G(s) coincidono con gli autovalori della matrice A.
+        La funzione di trasferimento descrive il rapporto tra la trasformata dell'uscita (dovuta all'ingresso senza l'uscita forzata) e la trasformata dell'ingresso.
     </p>
 </section>
 
-<section id="stabilità">
-    <h3>Stabilità</h3>
+<section id="matrici">
+    <h2 class="text-center text-danger">Lavorare con le Matrici (sistemi LTI)</h2>
+
+    <h3>Movimento di Stato ed Equilibrio</h3>
     <p>
-        La stabilità di un sistema è una proprietà che descrive come il sistema si comporta in risposta a piccole perturbazioni o cambiamenti.
-        Un sistema è considerato stabile se è in grado di mantenere uno stato o un comportamento desiderato di fronte a disturbi o variazioni nel suo ambiente.
-        Matematicamente un sistema si dice stabile se rimane vicino al proprio equilibrio quando viene perturbato e 
-        si dice asintoticamente stabile quando torna esattamente al suo equilibrio se perturbato.
-        Si noti che troppa stabilità non è necessariamente una buona cosa: un sistema troppo stabile significa che tende a non spostarsi dal suo equilibrio anche quando lo desideri che lo facesse.
-        Un sistema è BIBO Stabile (input limitato, output limitato) se per ogni input limitato, esiste un output limitato.
+        La Matrice A della rappresentazione in forma di stato (quella matriciale) è la matrice di sistema che rappresenta lo stato sel sistema,
+        essa è infatti la matrice dei coefficienti delle variabili di stato, le variabili di stato rappresentano le quantità che descrivono completamente 
+        lo stato del sistema in un determinato istante di tempo. Ad esempio, per un sistema meccanico come un pendolo, 
+        le variabili di stato possono includere la posizione e la velocità del pendolo al momento considerato.
+        Il <strong>movimento dello stato</strong> si riferisce quindi al cambiamento delle variabili di stato nel tempo, in base alle equazioni che descrivono il sistema dinamico. 
+        Il <strong>movimento di equilibrio</strong> è la condizione in cui le variabili di stato di un sistema dinamico rimangono costanti nel tempo. In altre parole, 
+        il sistema raggiunge uno stato stazionario in cui non ci sono cambiamenti nel tempo delle variabili di stato.
+        L'unico modo per cui il sistema possa muoversi da uno stato di equilibrio è una perturbazione esterna. 
+        Un <strong>movimento perturbato</strong> si verifica quando un sistema dinamico è influenzato da una perturbazione esterna o da un cambiamento improvviso nell'ingresso o nelle condizioni iniziali. 
     </p>
-    <h4>Condizioni di stabilità</h4>
-    <ul>
-        <li><strong>Asintoticamente stabile</strong> se gli autovalori della matrice A hanno parte reale < 0 e i poli della fdt hanno parte reale < 0.</li>
-        <li><strong>Marginalmente stabile</strong> se un autovalore (o polo) è = 0 con molteplicità = 1, tutti gli altri hanno parte reale < 0.</li>
-        <li><strong>Instabile</strong> se almeno un autovalore (o polo) ha parte reale > 0 o presenta un autovalore = 0 con molteplicità > 1.</li>
-    </ul>
-    <form id="stability-form" class="form-inline my-2 my-lg-0">
-        <input id="fdt-stability" placeholder="Matrice A" class="form-control mr-sm-2" type="text">
-        <button id="submit-stability" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Verifica</button>
-    </form>
-    <div id="result-stability"></div>
-    <p>La stabilità è quindi una proprietà che dipende dalla struttura del sistema (matrice A).</p>
-    <!--
-    <form id="reachability-form" class="form-inline my-2 my-lg-0">
-        <input id="fdt-reachability" placeholder="Matrice B" class="form-control mr-sm-2" type="text">
-        <button id="submit-reachability" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Verifica</button>
-    </form>
-    <div id="result-reachability"></div>
-    <form id="observability-form" class="form-inline my-2 my-lg-0">
-        <input id="fdt-observability" placeholder="Matrice C" class="form-control mr-sm-2" type="text">
-        <button id="submit-observability" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Verifica</button>
-    </form>
-    <div id="result-observability"></div>
-    -->
-</section>
 
-<section id="controllabilità">
+    <h3>Stabilità Interna</h3>
+    <p>
+        Un movimento si dice marginalmente stabile quando raggiunto un equilibrio lo stato varia nel tempo di una minima quantità,
+        si dice asintoticamente stabile se varia in minima quantita ma poi torna allo stato di equilibrio.
+        Un movimento se non è stabile è instabile.
+        Una matrice di Jordan è una matrice diagonale a blocchi:
+        <ul>
+            <li>Gli autovalori della matrice di Jordan sono gli autovalori dei singoli blocchi</li>
+            <li>molteplicità algebrica: numero di volte nel quale appare un autovalore</li>
+            <li>molteplicità geometrica: numero di blocchi nel quale appare l'autovalore</li>
+
+        </ul>
+        I modi sono tutte e sole le funzioni del tempo che compaiono combinate linearmente come elementi di e^(A*t), esse possono essere dedotte dagli autovalori della matrice A,
+        dai modi è possibile dedurre la stabilità o l'instabilità del sistema.
+        <h5>Analisi modale</h5>
+        <ul>
+            <li>Data la matrice A in forma di Jordan individuare i blocchi di Jordan e calcolarne gli autovalori</li>
+            <li>Assegnare le molteplicità algebrica e geometrica ad ogni autovalore di A in base al criterio sopra espresso</li>
+            <li>
+                Passiamo ora a scrivere per ogni blocco i modi
+                <ul>
+                    <li>Se l'autovalore è reale con m.a. nel blocco = 1 -> modo = e^(λt) </li>
+                    <li>Se l'autovalore è reale con m.a. nel blocco > 1 -> modo = t^k * e^(λt) con k = 0...(m.a.-1) </li>
+                    <li>Se l'autovalore è complesso coniugato (+-a*i + b) con m.a. = 1 -> modi = e^(bt) * cos(at), e^(bt) * sin(at)</li>
+                </ul>
+            </li>
+            <li>Se tutti i modi convergono a zero il sistema è asintoticamente stabile</li>
+            <li>Se non ci sono modi divergenti il sistema è marginalmente stabile</li>
+            <li>Se almeno uno dei modi diverge il sistema è instabile (es.: e^t * sin(t) -> diverge)</li>
+        </ul> 
+        Più semplicemente la stabilità può essere dedotta da autovalori e poli della fdt:
+        <ul>
+            <li><strong>Asintoticamente stabile</strong> se gli autovalori della matrice A hanno parte reale < 0 e i poli della fdt hanno parte reale < 0.</li>
+            <li><strong>Marginalmente stabile</strong> se un autovalore (o polo) è = 0 con m.a. = m.g., tutti gli altri hanno parte reale < 0.</li>
+            <li><strong>Instabile</strong> se almeno un autovalore (o polo) ha parte reale > 0 o presenta un autovalore = 0 con m.a. = m.g..</li>
+        </ul>
+        La stabilità interna è quindi una proprietà che dipende dalla struttura del sistema (matrice A).
+        Per i sistemi non LTI da cui deriva il sistema linearizzato possiamo dire che sono stabili solo se il linearizzato è asintoticamente stabile e che è instabile se il linearizzato è instabile. 
+        <h5>Metodo di Lyapunov</h5>
+        <p>
+            ...
+        </p>
+    <h3>Raggiungibilità</h3>
+    <p>
+        Uno stato del sistema si dice raggiungibile se esiste un ingresso che mi porta a tale stato in un tempo finito.
+        Un sistema si dice completamente raggiungibile se tutti gli stati sono raggiungibili.
+        Questa proprietà è indipendente dal segnale di uscita, infatti è verificabile studiando la matrice di raggiungibilità:
+        <br>
+        Mr = [B; A*B; A^2*B; ...; A^(n-1)*B] con n dimensione di A
+        <br>
+        Se il rango(Mr) = n allora il sistema risulta completamente raggiungibile.
+    </p>
+    
     <h3>Controllabilità</h3>
     <p>
-        Uno stato si dice controllabile se esiste un input che porta dallo stato 0 allo stato desiderato in tempo finito, il sistema è controllabile se ogni suo stato è controllabile. 
+        Uno stato si dice controllabile se esiste un input che porta quello stato allo stato zero in tempo finito, il sistema è controllabile se ogni suo stato è controllabile. 
+        Per i sistemi LTI controllabilità coincide con raggiungibilità.
+        Per un sistema completamente controllabile esiste sempre almeno un ingresso che permette al sistema di passare da uno stato ad un altro.
+        Un sistema si dice stabilizzabile se la parte non controllabile ha autovalori con parte reale < 0.
     </p>
-</section>
 
-<section id="osservabilità">
     <h3>Osservabilità</h3>
     <p>
-        Uno stato iniziale si dice osservabile se è possibile determinarlo misurando l'output, se ogni stato è osservabile il sistema è osservabile. 
+        Uno stato si dice non osservabile se analizzando un qualsiasi tratto dell'uscita libera corrispondente non si riesce a distinguere da x = 0.
+        <br>
+        Uscita libera -> y*e(t) = C * e^(At) * x0
+        <br>
+        L'uscita libera di un sistema si riferisce alla risposta del sistema quando non è soggetto a alcun ingresso esterno.
+        Da questo si evince che le matrici che ci servono per la verifica dell'osservabilità sono A e C (che moltiplicano le variabii di stato e non l'ingresso), nello specifico come per la raggiungibilità:
+        <br>
+        Mo = [C C*A C*A^2 ... C*A^(n-1)] con n dimensione di A
+        <br>
+        Se il rango(Mo) = n allora il sistema risulta completamente osservabile.        
     </p>
+
+    <h3>Stabilità BIBO (esterna)</h3>
+    <p>
+        In un sistema BIBO stabile, se l'ingresso applicato al sistema è limitato in ampiezza, l'uscita del sistema rimane limitata e non cresce in modo indefinito. Ciò implica che il sistema non amplifica l'ingresso al punto da causare uscite che divergono o crescono indefinitamente.
+
+    </p>
+    <h3>Risolvi un esercizio</h3>
+    <form id="matrix-form" class="form-inline my-2 my-lg-0">
+        <input id="A" placeholder="A (es.: [-2 2 -1; 0 -1 2; 0 -2 -1])" class="form-control mr-sm-2" type="text">
+        <input id="B" placeholder="B (es.: [1; 2; 1])" class="form-control mr-sm-2" type="text">
+        <input id="C" placeholder="C (es.: [0 1 0])" class="form-control mr-sm-2" type="text">
+        <input id="D" placeholder="D (es.: 0)" class="form-control mr-sm-2" type="text">
+        <button id="submit-matrix" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Studia</button>
+    </form>
+    <div id="result-matrix"></div>
 </section>
 
-<section id="diagrammi-a-blocchi">
+<section id="fdt">
+    <h2 class="text-center text-danger">Lavorare con la FDT (sistemi LTI)</h2>
     <h3>Diagrammi a Blocchi</h3>
     <img src="{{ url_for('static',filename='teoria/img/block-diagrams.png') }}" class="img-fluid mb-3 w-50">
     <p> 
         In questo processo di somma e moltiplicazione di fdt in caso di cancellazione di zeri o poli può essere inficiata la controllabilità e l'osservabilità.
         Inoltre non è possibile cancellare un polo instabile con uno zero, il sistema risulterebbe lo stesso instabile.
     </p>
-</section>
 
-<section id="ordine-di-un-sistema">
     <h3>Ordine di un sistema</h3>
     <p>
         Un sistema si dice proprio se il numero dei suoi poli è >= al numero dei suoi zeri.
@@ -168,9 +223,8 @@
         <button id="submit-step" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
     </form>
     <div id="result-step"></div>
-</section>
 
-<section id="th-valore-finale">
+    
     <h3>Teorema del Valore Finale</h3>
     <p>
         Intuitivamente, se l'output converge in un singolo valore esiste il valore finale, se invece l'uscita oscilla indefinitamente o va all'infinito parlare del valore finale non ha senso.
@@ -202,16 +256,15 @@
     <div id="result-errore"></div>
 </section>
 
-<section id="risposta-in-frequenza">
-    <h2>Risposta in Frequenza</h2>
+<section id="diagrammi">
+    <h2 class="text-center text-danger">Diagrammi e Metodi per la FDT</h2>
+    <h3>Risposta in Frequenza</h3>
     <p>
         La risposta in frequenza di un sistema di controllo descrive come il sistema risponde ai segnali in ingresso a diverse frequenze.
         Viene solitamente rappresentata graficamente utilizzando un diagramma di Bode, che mostra l'ampiezza e la fase del segnale di uscita in funzione della frequenza del segnale di ingresso.
         La rappresentazione del diagramma di Bode è valida solo per sistemi stabili o marginalmente stabili.
     </p>
-</section>
 
-<section id="bode-plot">
     <h3>Bode Plot</h3>
     <p>
         Ogni diagramma di Bode è composto in realtà da due grafici: uno che rappresenta il guadagno (o modulo) e l'altro che rappresenta la fase, sull'asse x c'è sempre la frequenza.
@@ -235,21 +288,18 @@
         L'ampiezza di banda è un'indicazione della velocità di risposta del sistema: un'ampiezza di banda più elevata implica una risposta transitoria più rapida (cioè in grado di seguire frequenze più elevate).
 
     </p>
-</section>
-<section id="sensitivity-function">
+
+    
     <h3>Sensitivity Function</h3>
     Data una fdt G(s) e un controllore R(s) in serie ad essa si dice L(s) = R(s)*G(s) la fdt di ciclo aperto.
     Per studiare quanto il feedback del sistema influenzi i disturbi si studia la funzione di sensitività: S(s) = 1/(1 + L(s)).
     In particolare si studia il picco di sensitività nominale ovvero: il massimo di w in |S(jw)|, più è alto e maggiore il nostro sistema sarà sensibile agli ingressi.
-</section>
 
-<!--
-<section id="complementary-sensitivity-function">
+    
     <h3>Complementary Sensitivity Function</h3>
     T(s) = L(s)/(1 + L(s))
-</section>
--->
-<section id="routh-hurwitz-criterion">
+
+    
     <h3>Criterio di Routh-Hurwitz</h3>
     <p>
         Il criterio di stabilità di Routh-Hurwitz è un test matematico che rappresenta una condizione necessaria e sufficiente per la stabilità di un sistema di controllo lineare invariante nel tempo (LTI).
@@ -260,18 +310,15 @@
         E' inoltre molto utile per trovare il K critico, ovvero il guadagno K massimo moltiplicabile alla fdt dopo il quale il sistema a ciclo chiuso risulta instabile.
         Basta sommare al denominatore preso in esame dal metodo del video sopra il numeratore moltiplicato per la variabile K e determinare le condizioni di stabilità per K.
     </p>
-</section>
 
-<section id="criterio-di-nyquist">
     <h3>Criterio di Nyquist</h3>
     <p>
         Col criterio di Nyquist possiamo verificare semplicemente la stabilità di ciclo chiuso partendo da una fdt di ciclo aperto semplicemente disegnando il diagramma di Nyquist e contando gli avvolgimenti attorno al punto x = -1.
         Questo perchè abbiamo visto che coi diagrammi di Bode non possiamo dedurre niente a riguardo della stabilità e col cirterio di Routh-Hurwitz impieghiamo molto tempo.
         Con questo criterio basta disegnare il diagramma (vedi come al prossimo paragrafo) e verificare che il diagramma non avvolga il punto x = -1 perchè il sistema sia stabile a ciclo chiuso.
     </p>
-</section>
 
-<section id="nyquist-plot">
+    
     <h3>Nyquist Plot</h3>
     <ul>
         <li>Sostituire ad s il numero immaginario jw e calcolarsi G(jw)</li>
@@ -292,9 +339,8 @@
         <button id="submit-nyquist" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Disegna</button>
     </form>
     <div id="result-nyquist"></div>
-</section>
 
-<section id="margini-di-stabilita">
+    
     <h3>Margini di Stabilità</h3>
     <p>
         I margini di stabilità sono due valori che ci dicono quanto modulo e quanta fase possiamo aggiungere alla nostra fdt purchè essa rimanga stabile.
@@ -303,9 +349,8 @@
         il <strong>margine di fase</strong> invece è il valore che prende la fase alla frequenza in cui il modulo è a zero sommata a 180°. 
         <a href="#bode-plot">Si possono calcolare i margini di fase dal paragrafo sui diagrammi di Bode.</a>
     </p>
-</section>
 
-<section id="root-locus">
+
     <h3>Root Locus</h3>
     <p>
         Il luogo delle radici è un diagramma sul piano complesso che rappresenta i poli e gli zeri di una fdt al variare di K.
@@ -342,24 +387,20 @@
 </section>
 
 <section id="controllori">
-    <h2>Controllori</h2>
+    <h2 class="text-center text-danger">Controllori</h2>
     <p>
         Un controllore è un dispositivo che riceve come input una misurazione di un processo e genera come output un comando che viene utilizzato per controllare il processo. Il controllore è progettato per mantenere il processo in uno stato desiderato, nonostante le perturbazioni esterne.
         Nel nostro caso dato un sistema con fdt G(s) il controllore è un blocco che si mette in serie a G(s) che modifica il comportamento del sistema per raggiungere un obiettivo di prestazione.
     </p>
-</section>
 
-<section id="loop-shaping">
+    
     <h3>Loop Shaping</h3>
     <p>
         Partendo da una fdt G(s) voglio aggiungergli in serie un controllore R(s) che riesca a soddisfare alcuni parametri prestabiliti come:
         il sistema deve avere un certo margine di fase o di guadagno, l'errore a gradino deve essere minore di un tot oppure voglio rendere più stabile il sistema, etc...
         Solitamente è necessario analizzare il diagramma di Bode e tramite una procedura di trial-error si può arrivare al controllore R(s) desiderato. 
     </p>
-</section>
 
-
-<section id="lead-lag-compensators">
     <h3>Compensatori Lead-Lag</h3>
     <p>
         I compensatori lead-lag sono particolari controllori che permettono di agire in specifici parametri del sistema:
@@ -371,11 +412,18 @@
         </ul>
         Possono essere utilizzati anche per migliorare la stabilità o agire su di essa, infatti essendo coppi poli-zeri possono modificare gli asintoti del luogo delle radici (asintoti più a sx maggiore stabilità).
     </p>
-</section>
 
-<section id="pid">
     <h3>PID</h3>
-    <!-- Contenuto della lezione -->
+    <p>
+        I controllori PID (proporzionale-integrale-derivato) è il controllore più usato nei sistemi a ciclo chiuso (circa il 95% dei controllori sono PID).
+        <ul>
+            <li>P = proporzionale: il controllore è semplicemente un incremento di guadagno K.</li>
+            <li>I = integratore: il controllore è un polo in zero R(s) = 1/s </li>
+            <li>D = derivato: il controllore è uno zero in zero R(s) = s </li>
+        </ul>
+        Questi tre elementi messi in parallelo vanno a formare il controllore, tuttavia molto spesso i controllori sono formati da uno solo o due elementi (PI oppure solo D).
+        
+    </p>
 </section>
 </main>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
